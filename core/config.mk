@@ -1186,4 +1186,7 @@ RECORD_ALL_DEPS :=$= $(filter true,$(RECORD_ALL_DEPS))
 # Include any vendor specific config.mk file
 -include vendor/*/build/core/config.mk
 
+# Include any vendor specific config.mk file
+-include vendor/*/build/core/config.mk
+
 include $(BUILD_SYSTEM)/dumpvar.mk
