@@ -42,7 +42,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     netutils-wrapper-1.0
 
-ifeq ($(ORGASMIC_BUILD),)
+ifeq ($(IRON_BUILD),)
 # Additional settings used in all AOSP builds
 PRODUCT_VENDOR_PROPERTIES := \
     ro.config.ringtone?=Ring_Synth_04.ogg \
@@ -53,7 +53,7 @@ endif
 PRODUCT_LOCALES := en_US
 
 # Get some sounds
-ifeq ($(ORGASMIC_BUILD),)
+ifeq ($(IRON_BUILD),)
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AllAudio.mk)
 else
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AudioPackage14.mk)

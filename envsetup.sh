@@ -46,7 +46,7 @@ Invoke ". build/envsetup.sh" from your shell to add the following functions to y
 
 EOF
 
-    __print_orgasmic_functions_help
+    __print_iron_functions_help
 
 cat <<EOF
 
@@ -59,7 +59,7 @@ EOF
     local T=$(gettop)
     local A=""
     local i
-    for i in `cat $T/build/envsetup.sh $T/vendor/orgasmic/build/envsetup.sh | sed -n "/^[[:blank:]]*function /s/function \([a-z_]*\).*/\1/p" | sort | uniq`; do
+    for i in `cat $T/build/envsetup.sh $T/vendor/iron/build/envsetup.sh | sed -n "/^[[:blank:]]*function /s/function \([a-z_]*\).*/\1/p" | sort | uniq`; do
       A="$A $i"
     done
     echo $A
@@ -70,8 +70,8 @@ function build_build_var_cache()
 {
     local T=$(gettop)
     # Grep out the variable names from the script.
-    cached_vars=(`cat $T/build/envsetup.sh $T/vendor/orgasmic/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`)
-    cached_abs_vars=(`cat $T/build/envsetup.sh $T/vendor/orgasmic/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_abs_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`)
+    cached_vars=(`cat $T/build/envsetup.sh $T/vendor/iron/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`)
+    cached_abs_vars=(`cat $T/build/envsetup.sh $T/vendor/iron/build/envsetup.sh | tr '()' '  ' | awk '{for(i=1;i<=NF;i++) if($i~/get_abs_build_var/) print $(i+1)}' | sort -u | tr '\n' ' '`)
     # Call the build system to dump the "<val>=<value>" pairs as a shell script.
     build_dicts_script=`\builtin cd $T; build/soong/soong_ui.bash --dumpvars-mode \
                         --vars="${cached_vars[*]}" \
@@ -153,12 +153,12 @@ function check_product()
         echo "Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
-    if (echo -n $1 | grep -q -e "^orgasmic_") ; then
-        ORGASMIC_BUILD=$(echo -n $1 | sed -e 's/^orgasmic_//g')
+    if (echo -n $1 | grep -q -e "^iron_") ; then
+        IRON_BUILD=$(echo -n $1 | sed -e 's/^iron_//g')
     else
-        ORGASMIC_BUILD=
+        IRON_BUILD=
     fi
-    export ORGASMIC_BUILD
+    export IRON_BUILD
 
         TARGET_PRODUCT=$1 \
         TARGET_BUILD_VARIANT= \
@@ -711,16 +711,16 @@ function lunch()
 
     if ! check_product $product
     then
-        # if we can't find a product, try to grab it off the Orgasmic Project GitHub
+        # if we can't find a product, try to grab it off the Iron Project GitHub
         T=$(gettop)
         cd $T > /dev/null
-        vendor/orgasmic/build/tools/roomservice.py $product
+        vendor/iron/build/tools/roomservice.py $product
         cd - > /dev/null
         check_product $product
     else
         T=$(gettop)
         cd $T > /dev/null
-        vendor/orgasmic/build/tools/roomservice.py $product true
+        vendor/iron/build/tools/roomservice.py $product true
         cd - > /dev/null
     fi
 
@@ -1900,4 +1900,4 @@ fi
 
 export ANDROID_BUILD_TOP=$(gettop)
 
-. $ANDROID_BUILD_TOP/vendor/orgasmic/build/envsetup.sh
+. $ANDROID_BUILD_TOP/vendor/iron/build/envsetup.sh

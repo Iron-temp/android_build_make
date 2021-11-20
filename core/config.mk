@@ -317,8 +317,8 @@ include $(BUILD_SYSTEM)/envsetup.mk
 FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 
 -include vendor/extra/BoardConfigExtra.mk
-ifneq ($(ORGASMIC_BUILD),)
-include vendor/orgasmic/config/BoardConfigOrgasmic.mk
+ifneq ($(IRON_BUILD),)
+include vendor/iron/config/BoardConfigIron.mk
 endif
 
 # The build system exposes several variables for where to find the kernel
@@ -1159,11 +1159,11 @@ endif
 dont_bother_goals := out \
     product-graph dump-products
 
-ifneq ($(ORGASMIC_BUILD),)
-ifneq ($(wildcard device/orgasmic/sepolicy/common/sepolicy.mk),)
+ifneq ($(IRON_BUILD),)
+ifneq ($(wildcard device/iron/sepolicy/common/sepolicy.mk),)
 ## We need to be sure the global selinux policies are included
 ## last, to avoid accidental resetting by device configs
-$(eval include device/orgasmic/sepolicy/common/sepolicy.mk)
+$(eval include device/iron/sepolicy/common/sepolicy.mk)
 endif
 endif
 

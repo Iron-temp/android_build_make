@@ -222,23 +222,23 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   script.AppendExtra("ifelse(is_mounted(\"/system\"), unmount(\"/system\"));")
 
-  is_gapps = target_info.GetBuildProp("ro.orgasmic.version").endswith("-gapps")
+  is_gapps = target_info.GetBuildProp("ro.iron.version").endswith("-gapps")
   androidver = target_info.GetBuildProp("ro.build.version.release")
-  orgasmicver = target_info.GetBuildProp("ro.orgasmic.build.version")
+  ironver = target_info.GetBuildProp("ro.iron.build.version")
   build_id = target_info.GetBuildProp("ro.build.id")
-  build_date = target_info.GetBuildProp("ro.orgasmic.build.date")
+  build_date = target_info.GetBuildProp("ro.iron.build.date")
   securitypatch = target_info.GetBuildProp("ro.build.version.security_patch")
-  orgasmicdevice = target_info.GetBuildProp("ro.orgasmic.device")
+  irondevice = target_info.GetBuildProp("ro.iron.device")
 
   script.Print("--------------------------------------------")
-  script.Print("             Orgasmic Project               ")
+  script.Print("             Iron Project               ")
   script.Print("--------------------------------------------")
   script.Print("Android Version: %s"%(androidver))
-  script.Print("Orgasmic Version: %s"%(orgasmicver))
+  script.Print("Iron Version: %s"%(ironver))
   script.Print("Build ID: %s"%(build_id))
   script.Print("Build Date: %s"%(build_date))
   script.Print("Security Patch: %s"%(securitypatch))
-  script.Print("Device: %s"%(orgasmicdevice))
+  script.Print("Device: %s"%(irondevice))
   if is_gapps:
     script.Print("GApps Build: Yes")
   else:
